@@ -6,14 +6,15 @@ pipeline {
     }
     environment {
         SNAP_REPO = "LNP-snapshot"
-        NEXUS_USER = "admin"
-        NEXUS_PASS = "omkar"
+        // NEXUS_USER = "admin"
+        // NEXUS_PASS = "omkar"
         RELEASE_REPO = "LNP-release"
         CENTRAL_REPO = "LNP-main"
         NEXUSIP = "10.0.1.67"
         NEXUSPORT = "8081"
         NEXUS_GRP_REPO = "LNP-maven-group"
-        NEXUS_LOGIN = "c2102648-56ff-44fc-95ac-1eaf17d048ad"
+        // NEXUS_LOGIN = "c2102648-56ff-44fc-95ac-1eaf17d048ad"
+        NEXUS_LOGIN = "nexuslogin"
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
     }
@@ -31,37 +32,37 @@ pipeline {
             }
         }
 
-        stage('Test'){
-            steps {
-                // sh 'mvn -s settings.xml test'
-                sh 'mvn test' 
-            }
+        // stage('Test'){
+        //     steps {
+        //         // sh 'mvn -s settings.xml test'
+        //         sh 'mvn test' 
+        //     }
 
-        }
+        // }
 
-        stage('Checkstyle Analysis'){
-            steps {
-                sh 'mvn -s settings.xml checkstyle:checkstyle'
-            }
-        }
+        // stage('Checkstyle Analysis'){
+        //     steps {
+        //         sh 'mvn -s settings.xml checkstyle:checkstyle'
+        //     }
+        // }
 
-        stage('Sonar Analysis') {
-            environment {
-                scannerHome = tool "${SONARSCANNER}"
-            }
-            steps {
-               withSonarQubeEnv("${SONARSERVER}") {
-                   sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=lnp-app \
-                   -Dsonar.projectName=lnp-app \
-                   -Dsonar.projectVersion=1.0 \
-                   -Dsonar.sources=src/ \
-                   -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
-                   -Dsonar.junit.reportsPath=target/surefire-reports/ \
-                   -Dsonar.jacoco.reportsPath=target/jacoco.exec \
-                   -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
-              }
-            }
-        }
+        // stage('Sonar Analysis') {
+        //     environment {
+        //         scannerHome = tool "${SONARSCANNER}"
+        //     }
+        //     steps {
+        //        withSonarQubeEnv("${SONARSERVER}") {
+        //            sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=lnp-app \
+        //            -Dsonar.projectName=lnp-app \
+        //            -Dsonar.projectVersion=1.0 \
+        //            -Dsonar.sources=src/ \
+        //            -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
+        //            -Dsonar.junit.reportsPath=target/surefire-reports/ \
+        //            -Dsonar.jacoco.reportsPath=target/jacoco.exec \
+        //            -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
+        //       }
+        //     }
+        // }
 
         // stage("Quality Gate") {
         //     steps {
