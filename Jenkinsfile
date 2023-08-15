@@ -14,6 +14,9 @@ pipeline {
         NEXUS_LOGIN = "nexuslogin"
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
+        registryCredential = 'ecr:us-west-2:awscreds'
+        appRegistry = "971760914448.dkr.ecr.us-west-2.amazonaws.com/lnp-repo"
+        lnpRegistry = "971760914448.dkr.ecr.us-west-2.amazonaws.com/"
     }
     stages {
         stage('Build'){
@@ -60,7 +63,7 @@ pipeline {
               }
             }
         }
-        
+
 // Before proceeding create QG and attach it to your project in SonarQube. Also create webhook for jenkins
         
         stage("Quality Gate") {
@@ -93,8 +96,25 @@ pipeline {
             }
         }
 
-
-
+        stage('Build App Image') {
+            steps {
+                script {
+                    dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./Docker-files/app/")
+                }
+            }
+        }
+        
+        stage('Upload App Image') {
+          steps{
+            script {
+              docker.withRegistry( lnpRegistry, registryCredential ) {
+                dockerImage.push("$BUILD_NUMBER")
+                dockerImage.push('latest')
+              }
+            }
+          }
+        }
+        
 
 
     }
