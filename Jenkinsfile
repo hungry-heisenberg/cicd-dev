@@ -6,8 +6,6 @@ pipeline {
     }
     environment {
         SNAP_REPO = "LNP-snapshot"
-        // NEXUS_USER = "admin"
-        // NEXUS_PASS = "omkar"
         RELEASE_REPO = "LNP-release"
         CENTRAL_REPO = "LNP-main"
         NEXUSIP = "10.0.1.67"
@@ -62,7 +60,9 @@ pipeline {
               }
             }
         }
-// Before proceeding create QG and attach it to your project also create webhook for jenkins
+        
+// Before proceeding create QG and attach it to your project in SonarQube. Also create webhook for jenkins
+        
         stage("Quality Gate") {
             steps {
                 timeout(time: 1, unit: 'HOURS') {
