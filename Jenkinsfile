@@ -106,26 +106,40 @@ pipeline {
         }
     
 
-        stage('Build App Image') {
+        // stage('Build App Image') {
+        //     steps {
+        //         script {
+        //             dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./Docker-files/app/", {buildArgs(['MY_BUILD_ARG': env.WORKSPACE])})
+        //         }
+        //     }
+        // }
+        
+
+        // stage('Upload App Image') {
+        //   steps{
+        //     script {
+        //       docker.withRegistry( lnpRegistry, registryCredential ) {
+        //         dockerImage.push("$BUILD_NUMBER")
+        //         dockerImage.push('latest')
+        //       }
+        //     }
+        //   }
+        // }
+        
+
+        stage('Build and Push Image') {
             steps {
                 script {
-                    dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./Docker-files/app/", {buildArgs(['MY_BUILD_ARG': env.WORKSPACE])})
+                    docker.withRegistry("https://971760914448.dkr.ecr.us-west-2.amazonaws.com", 'ecr:us-west-2:awscreds') {
+                        def dockerImage = docker.build("971760914448.dkr.ecr.us-west-2.amazonaws.com/lnp-repo:latest", "./Docker-files/app/", {
+                            buildArgs(['MY_BUILD_ARG': env.WORKSPACE])
+                        })
+                        dockerImage.push()
+                    }
                 }
             }
         }
-        
-
-        stage('Upload App Image') {
-          steps{
-            script {
-              docker.withRegistry( lnpRegistry, registryCredential ) {
-                dockerImage.push("$BUILD_NUMBER")
-                dockerImage.push('latest')
-              }
-            }
-          }
-        }
-        
+    
 
 
     }
