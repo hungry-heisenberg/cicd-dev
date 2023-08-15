@@ -98,15 +98,16 @@ pipeline {
             }
         }
 
-        stage ("echo workspace"){
+     
+        stage("Env Variables") {
             steps {
-            // Print the workspace path
-             echo "Workspace: ${env.WORKSPACE}"
-
-            // Use the workspace path to reference files or execute commands
-            sh 'ls ${env.WORKSPACE}'
+                echo "The build number is ${env.BUILD_NUMBER}"
+                echo "You can also use \${BUILD_NUMBER} -> ${BUILD_NUMBER}"
+                sh 'echo "I can access $BUILD_NUMBER in shell command as well."'
+                echo "The build number is ${env.WORKSPACE}"
             }
         }
+    
 
         stage('Build App Image') {
             steps {
