@@ -101,7 +101,7 @@ pipeline {
 
         stage("Build and Push"){
             steps{
-            sh 'docker build -t lnp-repo .'
+            sh 'docker build . -t lnp-repo -f ./Docker-files/app/Dockerfile'
             sh 'docker tag lnp-repo:latest 971760914448.dkr.ecr.us-west-2.amazonaws.com/lnp-repo:latest'
             sh 'docker push 971760914448.dkr.ecr.us-west-2.amazonaws.com/lnp-repo:latest'
             }
