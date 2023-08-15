@@ -6,8 +6,8 @@ pipeline {
     }
     environment {
         SNAP_REPO = "LNP-snapshot"
-        // NEXUS_USER = "admin"
-        // NEXUS_PASS = "omkar"
+        NEXUS_USER = "admin"
+        NEXUS_PASS = "omkar"
         RELEASE_REPO = "LNP-release"
         CENTRAL_REPO = "LNP-main"
         NEXUSIP = "10.0.1.67"
