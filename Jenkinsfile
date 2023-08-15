@@ -98,61 +98,15 @@ pipeline {
             }
         }
 
+
+        stage("Build and Push"){
+            sh 'docker build -t lnp-repo .'
+            sh 'docker tag lnp-repo:latest 971760914448.dkr.ecr.us-west-2.amazonaws.com/lnp-repo:latest'
+            sh 'docker push 971760914448.dkr.ecr.us-west-2.amazonaws.com/lnp-repo:latest'
+        }
+
      
-        stage("Env Variables") {
-            steps {
-                  echo "The build number is ${env.WORKSPACE}"
-            }
-        }
-    
-
-        // stage('Build App Image') {
-        //     steps {
-        //         script {
-        //             dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./Docker-files/app/", {buildArgs(['MY_BUILD_ARG': env.WORKSPACE])})
-        //         }
-        //     }
-        // }
-        
-
-        // stage('Upload App Image') {
-        //   steps{
-        //     script {
-        //       docker.withRegistry( lnpRegistry, registryCredential ) {
-        //         dockerImage.push("$BUILD_NUMBER")
-        //         dockerImage.push('latest')
-        //       }
-        //     }
-        //   }
-        // }
-        
-
-        // stage('Build and Push Image') {
-        //     steps {
-        //         script {
-        //             docker.withRegistry("https://971760914448.dkr.ecr.us-west-2.amazonaws.com", 'ecr:us-west-2:awscreds') {
-        //                 def dockerImage = docker.build("971760914448.dkr.ecr.us-west-2.amazonaws.com/lnp-repo:latest", "./Docker-files/app/", {
-        //                     buildArgs(['MY_BUILD_ARG': env.WORKSPACE])
-        //                 })
-        //                 dockerImage.push()
-        //             }
-        //         }
-        //     }
-        // }
-        ////
-
-        stage('Build and Push Image') {
-            steps {
-                script {
-                    def customImage = docker.build("971760914448.dkr.ecr.us-west-2.amazonaws.com/lnp-repo:latest", "--build-arg MY_BUILD_ARG=env.WORKSPACE", "./Docker-files/app/")
-
-                    docker.withRegistry("https://971760914448.dkr.ecr.us-west-2.amazonaws.com", 'ecr:us-west-2:awscreds') {
-                        customImage.push()
-                    }
-                }
-            }
-        }
-    
+          
 
 
     }
