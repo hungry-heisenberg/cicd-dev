@@ -19,13 +19,6 @@ pipeline {
         lnpRegistry = "971760914448.dkr.ecr.us-west-2.amazonaws.com/"
     }
 
-    node {
-    // Print the workspace path
-    echo "Workspace: ${env.WORKSPACE}"
-
-    // Use the workspace path to reference files or execute commands
-    sh "ls ${env.WORKSPACE}"
-    }
 
     stages {
         stage('Build'){
@@ -102,6 +95,16 @@ pipeline {
                      type: 'war']
                   ]
                 )
+            }
+        }
+
+        stage ("echo workspace"){
+            steps {
+            // Print the workspace path
+            sh 'echo "Workspace: ${env.WORKSPACE}"'
+
+            // Use the workspace path to reference files or execute commands
+            sh 'ls ${env.WORKSPACE}'
             }
         }
 
