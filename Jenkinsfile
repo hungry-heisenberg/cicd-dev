@@ -101,7 +101,7 @@ pipeline {
         stage ("echo workspace"){
             steps {
             // Print the workspace path
-            sh 'echo "Workspace: ${env.WORKSPACE}"'
+             echo "Workspace: ${env.WORKSPACE}"
 
             // Use the workspace path to reference files or execute commands
             sh 'ls ${env.WORKSPACE}'
