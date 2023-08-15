@@ -6,14 +6,13 @@ pipeline {
     }
     environment {
         SNAP_REPO = "LNP-snapshot"
-        NEXUS_USER = "admin"
-        NEXUS_PASS = "omkar"
+        // NEXUS_USER = "admin"
+        // NEXUS_PASS = "omkar"
         RELEASE_REPO = "LNP-release"
         CENTRAL_REPO = "LNP-main"
         NEXUSIP = "10.0.1.67"
         NEXUSPORT = "8081"
         NEXUS_GRP_REPO = "LNP-maven-group"
-        // NEXUS_LOGIN = "c2102648-56ff-44fc-95ac-1eaf17d048ad"
         NEXUS_LOGIN = "nexuslogin"
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
