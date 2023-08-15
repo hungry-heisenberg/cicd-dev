@@ -22,7 +22,6 @@ pipeline {
         stage('Build'){
             steps {
                 sh 'mvn -U -s settings.xml -DskipTests clean install'
-                // sh 'mvn -DskipTests install'
             }
             post {
                 success {
@@ -32,37 +31,37 @@ pipeline {
             }
         }
 
-        // stage('Test'){
-        //     steps {
-        //         // sh 'mvn -s settings.xml test'
-        //         sh 'mvn test' 
-        //     }
+        stage('Test'){
+            steps {
+                // sh 'mvn -s settings.xml test'
+                sh 'mvn test' 
+            }
 
-        // }
+        }
 
-        // stage('Checkstyle Analysis'){
-        //     steps {
-        //         sh 'mvn -s settings.xml checkstyle:checkstyle'
-        //     }
-        // }
+        stage('Checkstyle Analysis'){
+            steps {
+                sh 'mvn -s settings.xml checkstyle:checkstyle'
+            }
+        }
 
-        // stage('Sonar Analysis') {
-        //     environment {
-        //         scannerHome = tool "${SONARSCANNER}"
-        //     }
-        //     steps {
-        //        withSonarQubeEnv("${SONARSERVER}") {
-        //            sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=lnp-app \
-        //            -Dsonar.projectName=lnp-app \
-        //            -Dsonar.projectVersion=1.0 \
-        //            -Dsonar.sources=src/ \
-        //            -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
-        //            -Dsonar.junit.reportsPath=target/surefire-reports/ \
-        //            -Dsonar.jacoco.reportsPath=target/jacoco.exec \
-        //            -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
-        //       }
-        //     }
-        // }
+        stage('Sonar Analysis') {
+            environment {
+                scannerHome = tool "${SONARSCANNER}"
+            }
+            steps {
+               withSonarQubeEnv("${SONARSERVER}") {
+                   sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=lnp-app \
+                   -Dsonar.projectName=lnp-app \
+                   -Dsonar.projectVersion=1.0 \
+                   -Dsonar.sources=src/ \
+                   -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
+                   -Dsonar.junit.reportsPath=target/surefire-reports/ \
+                   -Dsonar.jacoco.reportsPath=target/jacoco.exec \
+                   -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
+              }
+            }
+        }
 
         // stage("Quality Gate") {
         //     steps {
