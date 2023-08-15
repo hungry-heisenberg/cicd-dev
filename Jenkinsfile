@@ -101,10 +101,7 @@ pipeline {
      
         stage("Env Variables") {
             steps {
-                echo "The build number is ${env.BUILD_NUMBER}"
-                echo "You can also use \${BUILD_NUMBER} -> ${BUILD_NUMBER}"
-                sh 'echo "I can access $BUILD_NUMBER in shell command as well."'
-                echo "The build number is ${env.WORKSPACE}"
+                  echo "The build number is ${env.WORKSPACE}"
             }
         }
     
@@ -112,11 +109,12 @@ pipeline {
         stage('Build App Image') {
             steps {
                 script {
-                    dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./Docker-files/app/")
+                    dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./Docker-files/app/", {buildArgs(['MY_BUILD_ARG': env.WORKSPACE])})
                 }
             }
         }
         
+
         stage('Upload App Image') {
           steps{
             script {
