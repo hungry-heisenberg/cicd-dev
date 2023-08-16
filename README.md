@@ -1,16 +1,20 @@
-# WebApp
+## WebApp
 http://www.infinitycenter.in/login
 
 ## Overview
 
 This project aims to build an advanced CI-CD pipeline for a Dockerized Java web application.
 Running on **AWS ECS-Fargate**
-Our project is divided into two main parts:
 
-1. The initial phase involves the installation and configuration of various tools and servers.
+This project is divided into three main parts:
+
+1. Initial phase - Installation and configuration of various tools and servers.
     
-2. In the second phase, we will create an advanced end-to-end Jenkins pipeline with multiple stages.
-# Prerequisites
+2. Second phase - Create an advanced end-to-end Jenkins pipeline with multiple stages.
+
+3. Final phase - Deploy application on ECS
+
+## Prerequisites
 
 - JDK 1.8 or later
 
@@ -28,7 +32,7 @@ Our project is divided into two main parts:
 
 - JSP
 
-# Tools
+## Tools
 
 1. AWS
     

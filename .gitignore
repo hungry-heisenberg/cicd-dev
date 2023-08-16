@@ -32,5 +32,6 @@ override.tf.json
 id_rsa*
 join_cluster.sh
 .lock
+.lock*
 LNPsshkey*
 buffer*
