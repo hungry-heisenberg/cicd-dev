@@ -17,6 +17,8 @@ pipeline {
         registryCredential = 'ecr:us-west-2:awscreds'
         appRegistry = "971760914448.dkr.ecr.us-west-2.amazonaws.com/lnp-repo"
         lnpRegistry = "971760914448.dkr.ecr.us-west-2.amazonaws.com/"
+        cluster = "LNProject"
+        service = "my-ecs-service"
     }
 
 
@@ -107,7 +109,14 @@ pipeline {
             }
         }
 
-     
+        stage('Deploy to ECS') {
+            steps {
+                withAWS(credentials: 'awscreds', region: 'us-west-2') {
+                    sh 'aws ecs update-service --cluster ${cluster} --service ${service} --force-new-deployment'
+                } 
+            }
+        }
+         
           
 
 
