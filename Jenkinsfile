@@ -19,6 +19,7 @@ pipeline {
         lnpRegistry = "971760914448.dkr.ecr.us-west-2.amazonaws.com/"
         cluster = "LNProject"
         service = "my-ecs-service"
+        servicetwo = "ecs-svc"
     }
 
 
@@ -109,11 +110,16 @@ pipeline {
             sh 'docker push 971760914448.dkr.ecr.us-west-2.amazonaws.com/lnp-repo:latest'
             }
         }
+// Use one of the service based on requirements. Using both for demo purpose. For "with LB"  option create ALB and TargetGroups to Fwd traffic to ECS service.
 
         stage('Deploy to ECS') {
             steps {
                 withAWS(credentials: 'awscreds', region: 'us-west-2') {
-                    sh 'aws ecs update-service --cluster ${cluster} --service ${service} --force-new-deployment'
+                    //withoutLB
+                    sh 'aws ecs update-service --cluster ${cluster} --service ${service} --force-new-deployment' 
+                    //withLB
+                    sh 'aws ecs update-service --cluster ${cluster} --service ${servicetwo} --force-new-deployment' 
+
                 } 
             }
         }
