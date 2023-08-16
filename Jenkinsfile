@@ -103,6 +103,7 @@ pipeline {
 
         stage("Build and Push"){
             steps{
+            sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 971760914448.dkr.ecr.us-west-2.amazonaws.com'
             sh 'docker build . -t lnp-repo -f ./Docker-files/app/Dockerfile'
             sh 'docker tag lnp-repo:latest 971760914448.dkr.ecr.us-west-2.amazonaws.com/lnp-repo:latest'
             sh 'docker push 971760914448.dkr.ecr.us-west-2.amazonaws.com/lnp-repo:latest'
