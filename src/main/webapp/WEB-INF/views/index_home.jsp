@@ -21,7 +21,7 @@
                                 <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
                                     class="icon-bar"></span><span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="${contextPath}/index">INFINITY CENTER</a>
+                            <a class="navbar-brand" href="${contextPath}/index">INFINITY-CENTER</a>
                             <i class="brand_network"><small><small>DevOpsClub</small></small></i>
                         </div>
                         <div class="navbar-collapse collapse">
