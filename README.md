@@ -3,8 +3,9 @@ http://www.infinitycenter.in/login
 
 ## Overview
 
-This project aims to build an advanced CI-CD pipeline for a Dockerized Java web application.
-Running on **AWS ECS-Fargate**
+- This project aims to build an advanced CI-CD pipeline for a Dockerized Java web application.
+
+- Application runs on **AWS ECS(Fargate)**
 
 This project is divided into three main parts:
 
