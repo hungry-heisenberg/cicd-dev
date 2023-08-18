@@ -4,6 +4,7 @@
 # .tfstate files
 *.tfstate
 *.tfstate.*
+**/.terraform.lock.hcl
 
 # Crash log files
 crash.log
@@ -32,7 +33,5 @@ override.tf.json
 id_rsa*
 join_cluster.sh
 .lock
-.lock*
-*.hcl
 LNPsshkey*
 buffer*
