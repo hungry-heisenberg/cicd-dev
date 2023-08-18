@@ -33,5 +33,6 @@ id_rsa*
 join_cluster.sh
 .lock
 .lock*
+*.hcl
 LNPsshkey*
 buffer*
